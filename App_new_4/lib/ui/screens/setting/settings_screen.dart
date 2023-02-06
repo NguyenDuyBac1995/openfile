@@ -1,9 +1,9 @@
-import 'package:app_new_2/main.dart';
+
 import 'package:app_new_2/ui/screens/widgets/app_bar.dart';
 import 'package:app_new_2/ui/screens/widgets/setting_style.dart';
 import 'package:flutter/material.dart';
 
-import '../../routers/navigator.dart';
+import '../../routers/router_generator.dart';
 
 
 class SettingScreen extends StatefulWidget {
