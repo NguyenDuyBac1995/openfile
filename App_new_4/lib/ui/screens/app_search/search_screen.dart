@@ -3,6 +3,7 @@ import 'package:app_new_2/ui/screens/widgets/data_dummy.dart';
 import 'package:app_new_2/ui/screens/widgets/fontstyle.dart';
 import 'package:flutter/material.dart';
 import '../../../main.dart';
+import '../../routers/navigator.dart';
 import '../widgets/colors.dart';
 import '../widgets/text_fom_field.dart';
 

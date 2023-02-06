@@ -1,11 +1,9 @@
 import 'dart:async';
-import 'dart:io';
-
-import 'package:app_new_2/main.dart';
-import 'package:app_new_2/ui/screens/tutorial_setting/setting_1.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../routers/navigator.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

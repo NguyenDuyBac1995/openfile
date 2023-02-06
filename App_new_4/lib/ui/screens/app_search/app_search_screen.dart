@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../main.dart';
+import '../../routers/navigator.dart';
 import '../widgets/data_dummy.dart';
 
 class AppSearchScreen extends StatefulWidget {
