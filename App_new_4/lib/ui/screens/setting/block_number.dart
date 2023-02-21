@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/colors.dart';
 import '../widgets/fontstyle.dart';
-import '../widgets/text_fom_field.dart';
+import '../widgets/text_from_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class BlockNumberScreen extends StatefulWidget {

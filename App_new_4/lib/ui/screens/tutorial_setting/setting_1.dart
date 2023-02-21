@@ -1,3 +1,4 @@
+import 'package:app_new_2/ui/routers/router_generator.dart';
 import 'package:app_new_2/ui/screens/widgets/fontstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -113,7 +114,7 @@ class _TutorialSettingState extends State<TutorialSetting> {
                         child: TextButton(
                           child: Text('Ignore', style: FontStyles.STYLE1 ),
                           onPressed: () {
-                            Navigator.pushNamed(context, '/rules');
+                            Navigator.pushNamed(context, RouterGenerator.routeRules);
                           },
                         ),
                       ),
