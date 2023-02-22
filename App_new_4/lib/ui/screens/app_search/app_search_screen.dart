@@ -40,12 +40,11 @@ class _AppSearchScreenState extends State<AppSearchScreen> {
     }
     return Colors.red;
   }
-  final PhoneBlocs phoneBlocs = PhoneBlocs();
+
   @override
   void initState() {
     super.initState();
     toast.init(context);
-    phoneBlocs.getSearchPhoneDiscovery();
   }
   @override
   void dispose(){
@@ -61,7 +60,7 @@ class _AppSearchScreenState extends State<AppSearchScreen> {
       appBar: appBarV1(context, strTitle: 'Contacts'),
       body: StreamBuilder(
         stream: phoneBlocs.phoneInfoModel,
-        builder: (context, AsyncSnapshot snapshot) {
+        builder: (context, AsyncSnapshot<PhoneSearchModel> snapshot) {
           if (snapshot.hasData) {
             return Stack(
               children: [
@@ -77,7 +76,7 @@ class _AppSearchScreenState extends State<AppSearchScreen> {
                           }
                       ),
                       SizedBox(height: 20),
-                      Expanded(child: _updateData(snapshot.data))
+                      Expanded(child: _updateData(snapshot.data!))
                     ],
                   ),
                 )
@@ -95,11 +94,11 @@ class _AppSearchScreenState extends State<AppSearchScreen> {
     );
   }
 
-Widget  _updateData(AsyncSnapshot snapshot) {
+  _updateData(PhoneSearchModel phoneSearchModel) {
     return Container(
       child: ListView.separated(
         physics: BouncingScrollPhysics(),
-          itemCount: snapshot.data.length,
+          itemCount:phoneSearchModel.data?.length ?? 0,
           itemBuilder: (BuildContext context, int index){
           return GestureDetector(
             child: Container(
@@ -110,12 +109,12 @@ Widget  _updateData(AsyncSnapshot snapshot) {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(snapshot.data[index].phoneNumber,
+                      Text(phoneSearchModel.data?[index].phoneNumber ?? '',
                         style: FontStyles.STYLE2
                             .copyWith(color: Colors.blueAccent),
                       ),
                       SizedBox(height: 6),
-                      Text(snapshot.data[index].backerBy),
+                      Text(phoneSearchModel.data?[index].backerBy ??  ''),
                     ],
                   ),
                   InkWell(
@@ -134,9 +133,9 @@ Widget  _updateData(AsyncSnapshot snapshot) {
             ),
             onTap: () {
               data = BundleData(
-                  strPhone: snapshot.data[index].phoneNumber,
-                  StrGroup: snapshot.data[index].backerBy,
-                  StrDate: snapshot.data[index].updatedAt);
+                  strPhone: phoneSearchModel.data?[index].phoneNumber,
+                  StrGroup: phoneSearchModel.data?[index].backerBy,
+                  StrDate: phoneSearchModel.data?[index].updatedAt);
               Navigator.pushNamed(
                   context, RouterGenerator.routeInformation,
                   arguments: data);
