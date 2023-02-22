@@ -1,8 +1,8 @@
 import 'package:app_new_2/ui/routers/router_generator.dart';
-import 'package:app_new_2/ui/screens/widgets/fontstyle.dart';
+import 'package:app_new_2/ui/screens/widgets/utils/fontstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../widgets/colors.dart';
+import '../widgets/utils/colors.dart';
 
 class TutorialSetting extends StatefulWidget {
   const TutorialSetting({Key? key}) : super(key: key);

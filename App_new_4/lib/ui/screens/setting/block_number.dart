@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/app_bar.dart';
-import '../widgets/colors.dart';
-import '../widgets/fontstyle.dart';
-import '../widgets/text_from_field.dart';
+import '../widgets/components/app_bar.dart';
+import '../widgets/utils/colors.dart';
+import '../widgets/utils/fontstyle.dart';
+import '../widgets/components/text_from_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class BlockNumberScreen extends StatefulWidget {

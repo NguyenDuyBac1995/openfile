@@ -1,9 +1,9 @@
-import 'package:app_new_2/ui/screens/widgets/app_bar.dart';
-import 'package:app_new_2/ui/screens/widgets/text_from_field.dart';
+import 'package:app_new_2/ui/screens/widgets/components/app_bar.dart';
+import 'package:app_new_2/ui/screens/widgets/components/text_from_field.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../widgets/colors.dart';
-import '../widgets/fontstyle.dart';
+import '../widgets/utils/colors.dart';
+import '../widgets/utils/fontstyle.dart';
 
 class RequestBlockScreen extends StatefulWidget {
   const RequestBlockScreen({Key? key}) : super(key: key);

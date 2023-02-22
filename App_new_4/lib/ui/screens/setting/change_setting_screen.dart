@@ -1,8 +1,8 @@
-import 'package:app_new_2/ui/screens/widgets/app_bar.dart';
-import 'package:app_new_2/ui/screens/widgets/fontstyle.dart';
+import 'package:app_new_2/ui/screens/widgets/components/app_bar.dart';
+import 'package:app_new_2/ui/screens/widgets/utils/fontstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../widgets/colors.dart';
+import '../widgets/utils/colors.dart';
 
 class ChangeSettingScreen extends StatefulWidget {
   const ChangeSettingScreen({Key? key}) : super(key: key);

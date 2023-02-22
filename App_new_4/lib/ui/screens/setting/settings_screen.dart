@@ -1,6 +1,6 @@
 
-import 'package:app_new_2/ui/screens/widgets/app_bar.dart';
-import 'package:app_new_2/ui/screens/widgets/setting_style.dart';
+import 'package:app_new_2/ui/screens/widgets/components/app_bar.dart';
+import 'package:app_new_2/ui/screens/widgets/utils/setting_style.dart';
 import 'package:flutter/material.dart';
 
 import '../../routers/router_generator.dart';

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
 
-import '../widgets/app_bar.dart';
-import '../widgets/colors.dart';
+import '../widgets/components/app_bar.dart';
+import '../widgets/utils/colors.dart';
 
 class PrivacyScreen extends StatefulWidget {
   const PrivacyScreen({Key? key}) : super(key: key);

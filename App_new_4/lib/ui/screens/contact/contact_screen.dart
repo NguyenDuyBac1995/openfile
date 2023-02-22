@@ -1,7 +1,7 @@
-import 'package:app_new_2/ui/screens/widgets/app_bar.dart';
-import 'package:app_new_2/ui/screens/widgets/colors_text.dart';
-import 'package:app_new_2/ui/screens/widgets/data_dummy.dart';
-import 'package:app_new_2/ui/screens/widgets/fontstyle.dart';
+import 'package:app_new_2/ui/screens/widgets/components/app_bar.dart';
+import 'package:app_new_2/ui/screens/widgets/avatar/colors_avatar.dart';
+import 'package:app_new_2/ui/screens/widgets/utils/data_dummy.dart';
+import 'package:app_new_2/ui/screens/widgets/utils/fontstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
