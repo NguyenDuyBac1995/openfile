@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/app_bar.dart';
-import '../widgets/colors.dart';
-import '../widgets/fontstyle.dart';
+import '../widgets/components/app_bar.dart';
+import '../widgets/utils/colors.dart';
+import '../widgets/utils/fontstyle.dart';
 
 class InstallationScreen extends StatefulWidget {
   const InstallationScreen({Key? key}) : super(key: key);

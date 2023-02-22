@@ -1,4 +1,4 @@
-import 'package:app_new_2/ui/screens/widgets/fontstyle.dart';
+import 'package:app_new_2/ui/screens/widgets/utils/fontstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
@@ -6,7 +6,7 @@ import '../app_search/app_search_screen.dart';
 import '../block/black_list_screen.dart';
 import '../contact/contact_screen.dart';
 import '../setting/settings_screen.dart';
-import '../widgets/colors.dart';
+import '../widgets/utils/colors.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

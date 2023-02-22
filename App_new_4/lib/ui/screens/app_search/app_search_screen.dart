@@ -1,14 +1,17 @@
+import 'package:app_new_2/blocs/phone_blocs.dart';
+import 'package:app_new_2/models/phone/phone_search_model.dart';
 import 'package:app_new_2/ui/screens/app_search/information_screen.dart';
-import 'package:app_new_2/ui/screens/widgets/colors.dart';
-import 'package:app_new_2/ui/screens/widgets/app_bar.dart';
-import 'package:app_new_2/ui/screens/widgets/fontstyle.dart';
+import 'package:app_new_2/ui/screens/widgets/components/common.dart';
+import 'package:app_new_2/ui/screens/widgets/utils/colors.dart';
+import 'package:app_new_2/ui/screens/widgets/components/app_bar.dart';
+import 'package:app_new_2/ui/screens/widgets/utils/fontstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../main.dart';
 import '../../routers/fluro_navigator.dart';
 import '../../routers/router_generator.dart';
-import '../widgets/data_dummy.dart';
+import '../widgets/utils/data_dummy.dart';
 
 class AppSearchScreen extends StatefulWidget {
   const AppSearchScreen({Key? key}) : super(key: key);
@@ -43,106 +46,109 @@ class _AppSearchScreenState extends State<AppSearchScreen> {
     super.initState();
     toast.init(context);
   }
+  @override
+  void dispose(){
+    super.dispose();
+    phoneBlocs.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: appBarV1(context, strTitle: 'Contacts'),
-      body: Stack(
-        children: [
-          Container(
-            height: 70,
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-            child: GestureDetector(
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Colos.SEARCH,
-                    borderRadius: BorderRadius.circular(6),
-                    border: Border.all(color: Colors.white, width: 0.5)),
-                child: Row(
-                  children: [
-                    const SizedBox(width: 15),
-                    Transform.scale(
-                        scale: 1.4,
-                        child: Icon(Icons.search, color: Colors.white)),
-                    const SizedBox(width: 13),
-                    Text('Search',
-                        style: FontStyles.STYLE2.copyWith(fontSize: 19))
-                  ],
-                ),
-              ),
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  RouterGenerator.routeSearch,arguments: data
-                );
-              },
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 75, left: 14, right: 14),
+      body: StreamBuilder(
+        stream: phoneBlocs.phoneInfoModel,
+        builder: (context, AsyncSnapshot<PhoneSearchModel> snapshot) {
+          if (snapshot.hasData) {
+            return Stack(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  child: Column(
+                    children: [
+                      Common().search(
+                          hintText: 'Search',
+                          callback: () {
+                            NavigatorUtils.push(context,
+                                RouterGenerator.routeSearch);
+                          }
+                      ),
+                      SizedBox(height: 20),
+                      Expanded(child: _updateData(snapshot.data!))
+                    ],
+                  ),
+                )
+              ],
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text(snapshot.error.toString()),
+            );
+          }
+          return Center(child: CircularProgressIndicator(),
+          );
+        },
+      ),
+    );
+  }
+
+  _updateData(PhoneSearchModel phoneSearchModel) {
+    return Container(
+      child: ListView.separated(
+        physics: BouncingScrollPhysics(),
+          itemCount:phoneSearchModel.data?.length ?? 0,
+          itemBuilder: (BuildContext context, int index){
+          return GestureDetector(
             child: Container(
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemCount: dummyData.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(phoneSearchModel.data?[index].phoneNumber ?? '',
+                        style: FontStyles.STYLE2
+                            .copyWith(color: Colors.blueAccent),
+                      ),
+                      SizedBox(height: 6),
+                      Text(phoneSearchModel.data?[index].backerBy ??  ''),
+                    ],
+                  ),
+                  InkWell(
                     child: Container(
-                      decoration: BoxDecoration(
-                        border: Border(
-                            bottom:
-                                BorderSide(width: 0.3, color: Colors.white)),
-                      ),
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 14, vertical: 11),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  dummyData[index].phone,
-                                  style: FontStyles.STYLE2,
-                                ),
-                                SizedBox(height: 6),
-                                Text(dummyData[index].group,
-                                    style: FontStyles.STYLE2
-                                        .copyWith(color: Colors.blueAccent))
-                              ],
-                            ),
-                            InkWell(
-                              child: Container(
-                                child: Transform.scale(
-                                    scale: 1.3,
-                                    child: Icon(
-                                      Icons.more_horiz_outlined,
-                                      color: Colors.red,
-                                    )),
-                              ),
-                              onTap: _showBottomSheet,
-                            )
-                          ],
-                        ),
-                      ),
+                      child: Transform.scale(
+                          scale: 1.3,
+                          child: Icon(
+                            Icons.more_horiz_outlined,
+                            color: Colors.red,
+                          )),
                     ),
-                    onTap: () {
-                       data = BundleData(
-                          strPhone: dummyData[index].phone,
-                          StrGroup: dummyData[index].group,
-                          StrDate: dummyData[index].date);
-                      Navigator.pushNamed(
-                          context, RouterGenerator.routeInformation,
-                          arguments: data);
-                    },
-                  );
-                },
+                    onTap: _showBottomSheet,
+                  )
+                ],
               ),
             ),
-          ),
-        ],
+            onTap: () {
+              data = BundleData(
+                  strPhone: phoneSearchModel.data?[index].phoneNumber,
+                  StrGroup: phoneSearchModel.data?[index].backerBy,
+                  StrDate: phoneSearchModel.data?[index].updatedAt);
+              Navigator.pushNamed(
+                  context, RouterGenerator.routeInformation,
+                  arguments: data);
+            },
+
+          );
+          },
+          separatorBuilder: (BuildContext context, index) {
+            return Divider(
+              color: Colors.white,
+              height: 1,
+            );
+          }
       ),
     );
   }
@@ -169,10 +175,10 @@ class _AppSearchScreenState extends State<AppSearchScreen> {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  onPressed:(){
+                  onPressed: () {
                     Navigator.pop(context);
                     showBottomToast();
-                  } ,
+                  },
                 ),
               ),
               const Divider(
@@ -181,19 +187,19 @@ class _AppSearchScreenState extends State<AppSearchScreen> {
               ),
               ListTile(
                 title: TextButton(
-                  child: const Text(
-                    'Profile',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      color: Colors.red,
-                      fontWeight: FontWeight.w700,
+                    child: const Text(
+                      'Profile',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.red,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                  ),
-                  onPressed: (){
-                    Navigator.pop(context);
-                    _showDialog();
-                  }
+                    onPressed: () {
+                      Navigator.pop(context);
+                      _showDialog();
+                    }
                 ),
               ),
               const Divider(
@@ -250,7 +256,7 @@ class _AppSearchScreenState extends State<AppSearchScreen> {
                       SizedBox(height: 10),
                       Padding(
                         padding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                        EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                         child: Row(
                           children: [
                             Transform.scale(
@@ -281,7 +287,7 @@ class _AppSearchScreenState extends State<AppSearchScreen> {
                       ),
                       Padding(
                         padding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                        EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                         child: Row(
                           children: [
                             Transform.scale(
@@ -312,7 +318,7 @@ class _AppSearchScreenState extends State<AppSearchScreen> {
                       ),
                       Padding(
                         padding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                        EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                         child: Row(
                           children: [
                             Transform.scale(
@@ -343,7 +349,7 @@ class _AppSearchScreenState extends State<AppSearchScreen> {
                       ),
                       Padding(
                         padding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                        EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                         child: Row(
                           children: [
                             Transform.scale(
@@ -374,7 +380,7 @@ class _AppSearchScreenState extends State<AppSearchScreen> {
                       ),
                       Padding(
                         padding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                        EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                         child: Row(
                           children: [
                             Transform.scale(
@@ -451,20 +457,21 @@ class _AppSearchScreenState extends State<AppSearchScreen> {
         });
   }
 
-  void showBottomToast() => toast.showToast(
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Text(
-          'Block Success',
-          style: FontStyles.STYLE2.copyWith(color: Colos.BLUB_BUTTON),
-        ),
-      ),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 4),
-      positionedToastBuilder: (context, child) =>
-          Positioned(bottom: 20, left: 0, right: 0, child: child));
+  void showBottomToast() =>
+      toast.showToast(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Text(
+              'Block Success',
+              style: FontStyles.STYLE2.copyWith(color: Colos.BLUB_BUTTON),
+            ),
+          ),
+          gravity: ToastGravity.BOTTOM,
+          toastDuration: Duration(seconds: 4),
+          positionedToastBuilder: (context, child) =>
+              Positioned(bottom: 20, left: 0, right: 0, child: child));
 }

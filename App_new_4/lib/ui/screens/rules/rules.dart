@@ -1,10 +1,10 @@
-import 'package:app_new_2/ui/screens/widgets/fontstyle.dart';
+import 'package:app_new_2/ui/screens/widgets/utils/fontstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../widgets/colors.dart';
+import '../widgets/utils/colors.dart';
 
 class RulesScreen extends StatefulWidget {
   const RulesScreen({Key? key}) : super(key: key);

@@ -1,9 +1,9 @@
-import 'package:app_new_2/ui/screens/widgets/data_dummy.dart';
+import 'package:app_new_2/ui/screens/widgets/utils/data_dummy.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/app_bar.dart';
-import '../widgets/colors.dart';
-import '../widgets/fontstyle.dart';
+import '../widgets/components/app_bar.dart';
+import '../widgets/utils/colors.dart';
+import '../widgets/utils/fontstyle.dart';
 
 class InformationScreen extends StatefulWidget {
   InformationScreen({Key? key, required this.strPhone, required this.strGroup , required this.strDate }) : super(key: key);

@@ -1,8 +1,8 @@
-import 'package:app_new_2/ui/screens/widgets/app_bar.dart';
-import 'package:app_new_2/ui/screens/widgets/colors.dart';
-import 'package:app_new_2/ui/screens/widgets/data_dummy.dart';
-import 'package:app_new_2/ui/screens/widgets/fontstyle.dart';
-import 'package:app_new_2/ui/screens/widgets/text_from_field.dart';
+import 'package:app_new_2/ui/screens/widgets/components/app_bar.dart';
+import 'package:app_new_2/ui/screens/widgets/utils/colors.dart';
+import 'package:app_new_2/ui/screens/widgets/utils/data_dummy.dart';
+import 'package:app_new_2/ui/screens/widgets/utils/fontstyle.dart';
+import 'package:app_new_2/ui/screens/widgets/components/text_from_field.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
